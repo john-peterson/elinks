@@ -26,6 +26,7 @@ msg_box(struct terminal *term, struct memory_list *ml, msgbox_flags_T flags,
 	char *title, format_align_T align,
 	char *text, void *udata, int buttons, ...)
 {
+	LOG_JS("%s: %s\n",title,text);
 	struct dialog *dlg;
 	va_list ap;
 

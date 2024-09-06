@@ -116,7 +116,7 @@ elinks_internal(const char *fmt, ...)
 	er(1, 1, errbuf, params);
 
 	va_end(params);
-#ifdef CONFIG_DEBUG
+#ifdef CONFIG_DEBUG_DUMP
 	force_dump();
 #endif
 }
@@ -198,7 +198,7 @@ done_log(void)
 }
 
 void
-elinks_log(char *msg, char *file, int line,
+elinks_log(char *msg, char *file, int line,char*fun,
 	   const char *fmt, ...)
 {
 	static char *log_files = NULL;
@@ -223,8 +223,7 @@ elinks_log(char *msg, char *file, int line,
 			       loctime);
 		errbuf[len] = '\0';
 
-		fprintf(log_file, "\n\n[%-5s %-15s %4s]: Log started at %s\n",
-			"type", "file", "line", errbuf);
+		fprintf(log_file, "\n\nLog started at %s\n",errbuf);
 
 		atexit(done_log);
 	}
@@ -237,8 +236,8 @@ elinks_log(char *msg, char *file, int line,
 
 	va_start(params, fmt);
 
-	snprintf(errbuf, sizeof(errbuf), "[%-5s %-15s %4d]: %s",
-		 msg, file, line,  fmt);
+	snprintf(errbuf, sizeof(errbuf), "[%s %s %d %s]: %s",
+		 msg, file, line,fun,  fmt);
 
 	vfprintf(log_file, errbuf, params);
 	fputc('\n', log_file);

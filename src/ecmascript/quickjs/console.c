@@ -84,6 +84,7 @@ js_console_log_common(JSContext *ctx, JSValueConst this_val, int argc, JSValueCo
 		if (!str) {
 			return JS_EXCEPTION;
 		}
+		LOG_JS("console.log: %s",str);
 		FILE *f = fopen(log_filename, "a");
 
 		if (f)
@@ -101,7 +102,7 @@ static JSValue
 js_console_log(JSContext *ctx, JSValueConst this_val, int argc, JSValueConst *argv)
 {
 #ifdef ECMASCRIPT_DEBUG
-	fprintf(stderr, "%s:%s\n", __FILE__, __FUNCTION__);
+	fprintf(stderr, "%s %s %d\n", __FILE__, __FUNCTION__,__LINE__);
 #endif
 	REF_JS(this_val);
 
@@ -112,7 +113,7 @@ static JSValue
 js_console_error(JSContext *ctx, JSValueConst this_val, int argc, JSValueConst *argv)
 {
 #ifdef ECMASCRIPT_DEBUG
-	fprintf(stderr, "%s:%s\n", __FILE__, __FUNCTION__);
+	fprintf(stderr, "%s %s %d\n", __FILE__, __FUNCTION__,__LINE__);
 #endif
 	REF_JS(this_val);
 

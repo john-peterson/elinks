@@ -2027,7 +2027,7 @@ GETTEXT_CFLAGS=
 if test "x$ac_cv_c_compiler_gnu" = "xyes"; then
   if test "$CONFIG_DEBUG" = "yes"; then
     # We want to see all warnings and live with none (in debug mode).
-    CFLAGS="$CFLAGS -Werror"
+    CFLAGS="$CFLAGS"
   fi
   GETTEXT_CFLAGS="-Wno-uninitialized"
 

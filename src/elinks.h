@@ -25,7 +25,7 @@
  * config.h. */
 #include "setup.h"
 
-#ifdef CONFIG_DEBUG
+#ifdef CONFIG_DEBUG_MEM
 #define DEBUG_MEMLEAK
 #endif
 

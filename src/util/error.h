@@ -13,6 +13,8 @@
 extern "C" {
 #endif
 
+#include "main/main.h"
+
 /* This errfile thing is needed, as we don't have var-arg macros in standart,
  * only as gcc extension :(. */
 extern int errline;
@@ -74,24 +76,29 @@ void usrerror(const char *fmt, ...);
  * </dl>
  */
 void
-elinks_log(char *msg, char *file, int line,
+elinks_log(char *msg, char *file, int line,char*,
 	   const char *fmt, ...);
+
+#undef LOG_JS
+#define LOG_JS(args...) \
+	if (program.testjs)\
+		elinks_log("js", __FILE__, __LINE__,__FUNCTION__, args)
 
 #undef LOG_ERR
 #define LOG_ERR(args...) \
-	elinks_log("error", __FILE__, __LINE__, args)
+	elinks_log("error", __FILE__, __LINE__,__FUNCTION__, args)
 
 #undef LOG_WARN
 #define LOG_WARN(args...) \
-	elinks_log("warn", __FILE__, __LINE__, args)
+	elinks_log("warn", __FILE__, __LINE__,__FUBCTION__, args)
 
 #undef LOG_INFO
 #define LOG_INFO(args...) \
-	elinks_log("info", __FILE__, __LINE__, args)
+	elinks_log("info", __FILE__, __LINE__,__FUNCTION__, args)
 
 #undef LOG_DBG
 #define LOG_DBG(args...) \
-	elinks_log("debug", __FILE__, __LINE__, args)
+	elinks_log("debug", __FILE__, __LINE__,__FUNCTION__, args)
 
 #endif
 #endif

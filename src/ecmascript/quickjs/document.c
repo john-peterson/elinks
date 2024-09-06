@@ -1937,7 +1937,7 @@ static JSValue
 getDoctype(JSContext *ctx, void *node)
 {
 #ifdef ECMASCRIPT_DEBUG
-	fprintf(stderr, "%s:%s\n", __FILE__, __FUNCTION__);
+	fprintf(stderr, "%s:%s %d\n", __FILE__, __FUNCTION__, __LINE__);
 #endif
 	JSValue second;
 	static int initialized;
@@ -1967,7 +1967,7 @@ JSValue
 getDocument(JSContext *ctx, void *doc)
 {
 #ifdef ECMASCRIPT_DEBUG
-	fprintf(stderr, "%s:%s\n", __FILE__, __FUNCTION__);
+	fprintf(stderr, "%s %d %s\n", __FILE__, __LINE__, __FUNCTION__);
 #endif
 	struct js_document_private *doc_private = (struct js_document_private *)mem_calloc(1, sizeof(*doc_private));
 

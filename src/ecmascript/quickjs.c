@@ -405,6 +405,7 @@ quickjs_eval(struct ecmascript_interpreter *interpreter,
 	interpreter->heartbeat = add_heartbeat(interpreter);
 	interpreter->ret = ret;
 	JSValue r = JS_Eval(ctx, code->source, code->length, "", 0);
+	LOG_JS("eval js:\n%s\n", code->source);
 	done_heartbeat(interpreter->heartbeat);
 
 	if (JS_IsException(r)) {

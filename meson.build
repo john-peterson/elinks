@@ -662,7 +662,7 @@ endif
 if conf_data.get('CONFIG_QUICKJS')
     quickjsdeps = compiler.find_library('quickjs', static: st, required: false)
     if not quickjsdeps.found()
-        quickjsdeps = compiler.find_library('quickjs/libquickjs', static: true)
+        quickjsdeps = compiler.find_library('quickjs/libquickjs', static: true, dirs: '/data/data/com.termux/files/home/elinks')
     endif
     deps += quickjsdeps
     deps += dep_atomic
