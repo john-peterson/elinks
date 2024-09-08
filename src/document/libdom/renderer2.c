@@ -644,6 +644,7 @@ fire_generic_dom_event(void *t, void *tar, int bubbles, int cancelable)
 int
 fire_onload(void *doc)
 {
+	LOG_JS("");
 	return fire_generic_dom_event(corestring_dom_DOMContentLoaded, doc, false, false);
 }
 
