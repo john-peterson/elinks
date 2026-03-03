@@ -136,6 +136,8 @@ query_exit(struct session *ses)
 void
 exit_prog(struct session *ses, int query)
 {
+	// if (!are_there_downloads()) return;
+	query = 0;
 	assert(ses);
 
 	/* An exit query is in progress. */
