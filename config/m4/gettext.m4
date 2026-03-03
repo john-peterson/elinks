@@ -174,7 +174,7 @@ AC_DEFUN([AM_GNU_GETTEXT],
 
    AC_CHECK_HEADERS([argz.h limits.h locale.h nl_types.h malloc.h stddef.h \
 stdlib.h string.h unistd.h sys/param.h])
-   AC_CHECK_FUNCS([feof_unlocked fgets_unlocked getcwd getegid geteuid \
+   AC_CHECK_DECL([feof_unlocked fgets_unlocked getcwd getegid geteuid \
 getgid getuid mempcpy munmap putenv setenv setlocale stpcpy strchr strcasecmp \
 strdup strtoul tsearch __argz_count __argz_stringify __argz_next])
 
