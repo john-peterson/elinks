@@ -120,6 +120,7 @@ dont_exit_prog(void *ses_)
 void
 query_exit(struct session *ses)
 {
+	if (!are_there_downloads()) return;
 	/* [gettext_accelerator_context(query_exit)] */
 	ses->exit_query = 1;
 	msg_box(ses->tab->term, NULL, 0,
