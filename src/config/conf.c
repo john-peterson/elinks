@@ -90,7 +90,7 @@ struct conf_parsing_state {
 /** Tell the user about an error in the configuration file.
  * @return @a err, for convenience.  */
 static enum parse_error
-show_parse_error(const struct conf_parsing_state *state, enum parse_error err)
+show_parse_error2(const struct conf_parsing_state *state, const char *name, enum parse_error err)
 {
 	static const  char error_msg[][40] = {
 		"no error",        /* ERROR_NONE */
@@ -102,10 +102,20 @@ show_parse_error(const struct conf_parsing_state *state, enum parse_error err)
 	};
 
 	if (state->filename) {
-		fprintf(stderr, "%s:%d: %s\n",
-			state->filename, state->pos.line, error_msg[err]);
+		if (name) 
+			fprintf(stderr, "%s: %s\n",
+					error_msg[err], name);
+		else
+			fprintf(stderr, "%s:%d: %s\n",
+					state->filename, state->pos.line, error_msg[err]);
 	}
 	return err;
+}
+
+static enum parse_error
+show_parse_error(const struct conf_parsing_state *state, enum parse_error err)
+{
+	show_parse_error2(state, 0, err);
 }
 
 /** Skip comments and whitespace.  */
@@ -293,11 +303,9 @@ parse_set_common(struct option *opt_tree, struct conf_parsing_state *state,
 		if (want_domain)
 			mem_free(domain_copy);
 		domain_copy = NULL;
-		mem_free(optname_copy);
-		optname_copy = NULL;
 
 		if (!opt || (opt->flags & OPT_HIDDEN)) {
-			show_parse_error(state, ERROR_OPTION);
+			show_parse_error2(state, optname_copy, ERROR_OPTION);
 			skip_option_value(&state->pos);
 			return ERROR_OPTION;
 			/* TODO: Distinguish between two scenarios:
@@ -319,6 +327,8 @@ parse_set_common(struct option *opt_tree, struct conf_parsing_state *state,
 			 *   it with OPT_DELETED, and keep it in memory
 			 *   as long as OPT_TOUCHED is set.  */
 		}
+		mem_free(optname_copy);
+		optname_copy = NULL;
 
 		if (!option_types[opt->type].read2) {
 			show_parse_error(state, ERROR_VALUE);
